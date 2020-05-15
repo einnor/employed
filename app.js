@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.status(200);
+  res.status(200).json({ data: 'Up and running!' });
 });
 
 app.listen(PORT, () => {
