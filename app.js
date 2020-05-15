@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-apiRoutes.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
   res.status(200).json({ data: 'Up and running!' });
