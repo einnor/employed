@@ -34,3 +34,8 @@ const dropCollection = async (collectionName) => {
   }
 };
 
+module.exports = {
+  connect,
+  disconnect,
+  dropCollection,
+};
