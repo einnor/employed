@@ -4,7 +4,7 @@ const URL = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_
 
 const connect = async () => {
   try {
-    await mongoose.connect(URL);
+    await mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
   } catch (error) {
     console.log(error);
     throw new Error(error);
