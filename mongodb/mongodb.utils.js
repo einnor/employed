@@ -11,3 +11,12 @@ const connect = async () => {
   }
 };
 
+const disconnect = async () => {
+  try {
+    await mongoose.disconnect(URL);
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
