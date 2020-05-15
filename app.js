@@ -1,7 +1,7 @@
 const express = require('express');
 
 const apiRoutes = require('./routes');
-const mongodb = require('./mongodb');
+const mongodb = require('./mongodb/mongodb.utils');
 
 const PORT = 8080;
 const app = express();
