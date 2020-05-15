@@ -6,3 +6,7 @@ router.get('/', (req, res) => {
     message: 'Welcome to the employee api router',
   });
 });
+
+module.exports = {
+  router,
+}
