@@ -15,6 +15,12 @@ const createEmployee = async (req, res, next) => {
     if (joiCheck.error) {
       return res.status(400).json(joiCheck.error);
     }
+    const emailExists = await employeeModel.findOne({
+      email: req.body.email,
+    });
+    if (emailExists) {
+      return res.status(400).json('The email you provided already exists in our database.');
+    }
     const newEmployee = await employeeModel.create(req.body);
     res.status(201).json(newEmployee);
   } catch (error) {
