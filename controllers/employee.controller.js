@@ -51,4 +51,5 @@ const getAllEmployees = async (req, res, next) => {
 
 module.exports = {
   createEmployee,
+  getAllEmployees,
 };
