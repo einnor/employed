@@ -51,7 +51,7 @@ const getAllEmployees = async (req, res, next) => {
 
 const getEmployeeById = async (req, res, next) => {
   try {
-    const employee = await employeeModel.findById(req.params.employee.id);
+    const employee = await employeeModel.findById(req.params.id);
     if (employee) {
       res.status(200).json(employee);
     } else {
