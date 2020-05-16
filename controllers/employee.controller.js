@@ -62,8 +62,28 @@ const getEmployeeById = async (req, res, next) => {
   }
 };
 
+const updateEmployeeById = async (req, res, next) => {
+  try {
+    const employee = await employeeModel.findByIdAndUpdate(
+      eq.params.id,
+      req.body,
+      {
+        useFindAndModify: false,
+      },
+    );
+    if (employee) {
+      res.status(200).json(employee);
+    } else {
+      res.status(400).send();
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
+  updateEmployeeById,
 };
