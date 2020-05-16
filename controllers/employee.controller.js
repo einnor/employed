@@ -42,7 +42,20 @@ const getAllEmployees = async (req, res, next) => {
     if (employees && employees.length) {
       res.status(200).json(employees);
     } else {
-      res.status(404);
+      res.status(404).send();
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const getEmployeeById = async (req, res, next) => {
+  try {
+    const employee = await employeeModel.findById(req.params.employee.id);
+    if (employee) {
+      res.status(200).json(employee);
+    } else {
+      res.status(404).send();
     }
   } catch (error) {
     res.status(500).json(error);
@@ -52,4 +65,5 @@ const getAllEmployees = async (req, res, next) => {
 module.exports = {
   createEmployee,
   getAllEmployees,
+  getEmployeeById,
 };
