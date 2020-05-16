@@ -65,7 +65,7 @@ const getEmployeeById = async (req, res, next) => {
 const updateEmployeeById = async (req, res, next) => {
   try {
     const employee = await employeeModel.findByIdAndUpdate(
-      eq.params.id,
+      req.params.id,
       req.body,
       {
         useFindAndModify: false,
@@ -81,9 +81,23 @@ const updateEmployeeById = async (req, res, next) => {
   }
 };
 
+const deleteEmployeeById = async (req, res, next) => {
+  try {
+    const results = await employeeModel.findByIdAndDelete(req.params.id);
+    if (results) {
+      res.status(200).json(results);
+    } else {
+      res.status(404).json('User Not Found');
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
   updateEmployeeById,
+  deleteEmployeeById,
 };
