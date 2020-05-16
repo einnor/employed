@@ -42,7 +42,7 @@ const getAllEmployees = async (req, res, next) => {
     if (employees && employees.length) {
       res.status(200).json(employees);
     } else {
-      res.status(404).json([]);
+      res.status(404);
     }
   } catch (error) {
     res.status(500).json(error);
