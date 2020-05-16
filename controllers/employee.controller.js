@@ -28,11 +28,24 @@ const createEmployee = async (req, res, next) => {
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
     const encryptedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = encryptedPassword;
-    const newEmployee = await employeeModel.create(req.body);
-    res.status(201).json(newEmployee);
+    const employee = await employeeModel.create(req.body);
+    res.status(201).json(employee);
   } catch (error) {
     console.log(error);
     res.status(500).json(error)
+  }
+};
+
+const getAllEmployees = async (req, res, next) => {
+  try {
+    const employees = await employeeModel.find({});
+    if (employees && employees.length) {
+      res.status(200).json(employees);
+    } else {
+      res.status(404).json([]);
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
