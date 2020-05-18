@@ -22,4 +22,21 @@ describe('Update Employee by ID - Controller', () => {
   test('updateEmployeeById function is defined', () => {
     expect(typeof updateEmployeeById).toBe('function');
   });
+
+  test('update an existing employee with phone number', async () => {
+    req.params.id = mockEmployees[0]._id;
+    const toUpdate = { ...mockEmployees[0], phone: '123456789' };
+    req.body = { ...toUpdate };
+    model.findByIdAndUpdate.mockReturnValue(toUpdate);
+    await updateEmployeeById(req, res, next);
+    expect(model.findByIdAndUpdate).toHaveBeenCalledWith(
+      req.params.id,
+      req.body,
+      {
+        useFindAndModify: false,
+      }
+    );
+    expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(toUpdate);
+  });
 });
