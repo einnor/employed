@@ -94,10 +94,34 @@ const deleteEmployeeById = async (req, res, next) => {
   }
 };
 
+const loginEmployee = async (req, res, next) => {
+  try {
+    const joiCheck = schema.validate(req.body);
+    if (joiCheck.error) {
+      return res.status(400).json(joiCheck.error);
+    }
+    const employee = await employeeModel.findOne({
+      email: req.body.email,
+    });
+    if (!employee) {
+      return res.status(400).json('The email you provided does not exist in our database.');
+    }
+    
+    const validPassword = await bcrypt.compare(req.body.password, employee.password);
+    if (!validPassword) {
+      return res.status(400).json('You provided an invalid password.Please try again.');
+    }
+    res.status(201).json(employee);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
   updateEmployeeById,
   deleteEmployeeById,
+  loginEmployee,
 };
