@@ -16,7 +16,7 @@ describe('Get Employee By ID - Controller', () => {
     expect(typeof getEmployeeById).toBe('function');
   });
 
-  test.only('return an employee by id', async () => {
+  test('return an employee by id', async () => {
     req.params.id = mockEmployees[0]._id;
     model.findById.mockReturnValue(mockEmployees[0]);
     await getEmployeeById(req, res, next);
