@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "5ec24bd4a925206e154121d1",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "$2b$10$X9NFYc868J7w58iP4/orIe6x4s/wAErFmm47s5ZKo9U2FWdIW1F1y",
+    "createdAt": "2020-05-18T08:48:20.838Z",
+    "__v": 0
+  },
+  {
+    "_id": "5ec24beba925206e154121d2",
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "password": "$2b$10$cZOjWOiJEOKDQ/cCpaXwter6OsCtG0g7vqtmd6aO.yFTEcw7c10Fq",
+    "createdAt": "2020-05-18T08:48:43.047Z",
+    "__v": 0
+  },
+  {
+    "_id": "5ec24c0ba925206e154121d3",
+    "name": "Peggy Doe",
+    "email": "peggy.doe@example.com",
+    "password": "$2b$10$38ENsgI7QoZ0HrTMbM1gIOsnzjYN0K.5swgEBRKAYb0SwnGB5LSf.",
+    "createdAt": "2020-05-18T08:49:15.324Z",
+    "__v": 0
+  }
+]
