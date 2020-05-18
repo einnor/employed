@@ -26,8 +26,10 @@ describe('Get Employee By ID - Controller', () => {
   });
 
   test('return 404 when id not found', async () => {
+    req.params.id = mockEmployees[0]._id;
     model.findById.mockReturnValue(null);
     await getEmployeeById(req, res, next);
+    expect(model.findById).toHaveBeenCalledWith(req.params.id);
     expect(res.statusCode).toBe(404);
   });
 });
