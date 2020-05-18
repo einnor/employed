@@ -16,8 +16,10 @@ describe('Get Employee By ID - Controller', () => {
     expect(typeof getEmployeeById).toBe('function');
   });
 
-  test('return an employee by id', (req, res, next) => {
+  test.only('return an employee by id', async () => {
     req.params.id = mockEmployees[0]._id;
     model.findById.mockReturnValue(mockEmployees[0]);
+    await getEmployeeById(req, res, next);
+    expect(model.findById).toHaveBeenCalledWith(req.params.id);
   });
 });
