@@ -40,12 +40,12 @@ describe('Get Employee By ID - Controller', () => {
     expect(res.statusCode).toBe(404);
   });
 
-  test('return 500 when model.findById throws an exception', async () => {
+  test.only('return 500 when model.findById throws an exception', async () => {
     req.params.id = mockEmployees[0]._id;
     model.findById.mockRejectedValue('Fake exception from findById');
     await getEmployeeById(req, res, next);
     expect(model.findById).toHaveBeenCalledWith(req.params.id);
     expect(res.statusCode).toBe(500);
-    expect(res._getData()).toStrictEqual('Fake exception from findById');
+    expect(res._getJSONData()).toStrictEqual('Fake exception from findById');
   });
 });
