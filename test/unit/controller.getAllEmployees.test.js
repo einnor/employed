@@ -30,4 +30,12 @@ describe('Get All Employees - Controller', () => {
     expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toStrictEqual(mockEmployees);
   });
+
+  test('return 404 when collection is empty', async () => {
+    model.find.mockReturnValue(null);
+    await getAllEmployees(req, res, next);
+    expect(model.find).toHaveBeenCalled();
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+  });
 });

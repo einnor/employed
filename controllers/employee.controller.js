@@ -43,7 +43,7 @@ const getAllEmployees = async (req, res, next) => {
     if (employees && employees.length) {
       res.status(200).json(employees);
     } else {
-      res.status(404).send();
+      res.status(404).json();
     }
   } catch (error) {
     res.status(500).json(error);
@@ -56,7 +56,7 @@ const getEmployeeById = async (req, res, next) => {
     if (employee) {
       res.status(200).json(employee);
     } else {
-      res.status(404).send();
+      res.status(404).json();
     }
   } catch (error) {
     res.status(500).json(error);
@@ -75,7 +75,7 @@ const updateEmployeeById = async (req, res, next) => {
     if (employee) {
       res.status(200).json(employee);
     } else {
-      res.status(400).send();
+      res.status(400).json();
     }
   } catch (error) {
     res.status(500).json(error);
