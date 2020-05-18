@@ -9,5 +9,9 @@ model.find = jest.fn();
 let req, res, next;
 
 describe('Get All Employees - Controller', () => {
-  
+  beforeEach(() => {
+    req = httpMock.createRequest();
+    res = httpMock.createResponse();
+    next = null;
+  });
 });
