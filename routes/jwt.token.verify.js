@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    const tokenData = jwt.verify(token, 'secret');
+    const tokenData = jwt.verify(token, process.env.JWT_SECRET);
     req.user = tokenData;
   } catch (error) {
     res.status(400).json('Remember we have security in place. Go away. Wrong token.');

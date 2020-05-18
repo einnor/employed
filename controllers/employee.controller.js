@@ -114,7 +114,7 @@ const loginEmployee = async (req, res, next) => {
     }
     const token = await jwt.sign({
       data: employee,
-    }, 'secret', { expiresIn: '1h' });
+    }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.header('auth-token', token);
     res.status(201).json(employee);
   } catch (error) {
