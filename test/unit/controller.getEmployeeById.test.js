@@ -7,11 +7,14 @@ const mockEmployees = require('../mockdata/employees.json');
 model.findById = jest.fn();
 
 let req, res, next;
-req = httpMock.createRequest();
-res = httpMock.createResponse();
-next = null;
 
 describe('Get Employee By ID - Controller', () => {
+  beforeEach(() => {
+    req = httpMock.createRequest();
+    res = httpMock.createResponse();
+    next = null;
+  });
+
   test('getEmployeeById function is defined', () => {
     expect(typeof getEmployeeById).toBe('function');
   });
@@ -31,5 +34,14 @@ describe('Get Employee By ID - Controller', () => {
     await getEmployeeById(req, res, next);
     expect(model.findById).toHaveBeenCalledWith(req.params.id);
     expect(res.statusCode).toBe(404);
+  });
+
+  test('return 500 when model.findById throws an exception', async () => {
+    req.params.id = mockEmployees[0]._id;
+    model.findById.mockRejectedValue('Fake exception from findById');
+    await getEmployeeById(req, res, next);
+    expect(model.findById).toHaveBeenCalledWith(req.params.id);
+    expect(res.statusCode).toBe(500);
+    expect(res._getData()).toStrictEqual('Fake exception from findById');
   });
 });
