@@ -16,6 +16,10 @@ describe('Update Employee by ID - Controller', () => {
   });
 
   afterEach(() => {
-    model.findByIdAndDelete.mockClear();
+    model.findByIdAndUpdate.mockClear();
+  });
+
+  test('updateEmployeeById function is defined', () => {
+    expect(typeof updateEmployeeById).toBe('function');
   });
 });
