@@ -40,7 +40,7 @@ describe('Get Employee By ID - Controller', () => {
     expect(res.statusCode).toBe(404);
   });
 
-  test.only('return 500 when model.findById throws an exception', async () => {
+  test('return 500 when model.findById throws an exception', async () => {
     req.params.id = mockEmployees[0]._id;
     model.findById.mockRejectedValue('Fake exception from findById');
     await getEmployeeById(req, res, next);
