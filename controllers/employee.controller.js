@@ -73,7 +73,7 @@ const updateEmployeeById = async (req, res, next) => {
       },
     );
     if (employee) {
-      res.status(200).json(employee);
+      res.status(201).json(employee);
     } else {
       res.status(400).json();
     }

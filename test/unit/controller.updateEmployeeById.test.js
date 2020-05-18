@@ -36,7 +36,7 @@ describe('Update Employee by ID - Controller', () => {
         useFindAndModify: false,
       }
     );
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(201);
     expect(res._getJSONData()).toStrictEqual(toUpdate);
   });
 });
