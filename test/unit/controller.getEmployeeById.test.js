@@ -22,5 +22,6 @@ describe('Get Employee By ID - Controller', () => {
     await getEmployeeById(req, res, next);
     expect(model.findById).toHaveBeenCalledWith(req.params.id);
     expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(mockEmployees[0]);
   });
 });
