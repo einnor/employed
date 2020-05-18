@@ -24,4 +24,10 @@ describe('Get Employee By ID - Controller', () => {
     expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toStrictEqual(mockEmployees[0]);
   });
+
+  test('return 404 when id not found', async () => {
+    model.findById.mockReturnValue(null);
+    await getEmployeeById(req, res, next);
+    expect(res.statusCode).toBe(404);
+  });
 });
