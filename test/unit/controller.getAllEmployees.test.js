@@ -22,4 +22,12 @@ describe('Get All Employees - Controller', () => {
   test('getAllEmployees function is defined', () => {
     expect(typeof getAllEmployees).toBe('function');
   });
+
+  test('return all employees', async () => {
+    model.find.mockReturnValue(mockEmployees);
+    await getAllEmployees(req, res, next);
+    expect(model.find).toHaveBeenCalled();
+    expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(mockEmployees);
+  });
 });
