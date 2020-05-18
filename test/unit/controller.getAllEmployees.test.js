@@ -1,6 +1,6 @@
 const httpMock = require('node-mocks-http');
 
-const { getEmployeeById } = require('../../controllers/employee.controller');
+const { getAllEmployees } = require('../../controllers/employee.controller');
 const model = require('../../models/employee.model');
 const mockEmployees = require('../mockdata/employees.json');
 
@@ -17,5 +17,9 @@ describe('Get All Employees - Controller', () => {
 
   afterEach(() => {
     model.find.mockClear();
+  });
+
+  test('getAllEmployees function is defined', () => {
+    expect(typeof getAllEmployees).toBe('function');
   });
 });
