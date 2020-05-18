@@ -15,6 +15,10 @@ describe('Get Employee By ID - Controller', () => {
     next = null;
   });
 
+  afterEach(() => {
+    model.findById.mockClear();
+  });
+
   test('getEmployeeById function is defined', () => {
     expect(typeof getEmployeeById).toBe('function');
   });
