@@ -38,4 +38,12 @@ describe('Get All Employees - Controller', () => {
     expect(res.statusCode).toBe(404);
     expect(res._isEndCalled()).toBeTruthy();
   });
+
+  test('return 500 when find throws an exception', async () => {
+    model.find.mockRejectedValue('Error');
+    await getAllEmployees(req, res, next);
+    expect(model.find).toHaveBeenCalled();
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toStrictEqual('Error');
+  });
 });
