@@ -14,4 +14,8 @@ describe('Get All Employees - Controller', () => {
     res = httpMock.createResponse();
     next = null;
   });
+
+  afterEach(() => {
+    model.find.mockClear();
+  });
 });
