@@ -21,5 +21,6 @@ describe('Get Employee By ID - Controller', () => {
     model.findById.mockReturnValue(mockEmployees[0]);
     await getEmployeeById(req, res, next);
     expect(model.findById).toHaveBeenCalledWith(req.params.id);
+    expect(res.statusCode).toBe(200);
   });
 });
