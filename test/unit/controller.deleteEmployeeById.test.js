@@ -18,4 +18,8 @@ describe('Delete Employee by ID - Controller', () => {
   afterEach(() => {
     model.findByIdAndDelete.mockClear();
   });
+
+  test('deleteEmployeeById function is defined', () => {
+    expect(typeof deleteEmployeeById).toBe('function');
+  });
 });
