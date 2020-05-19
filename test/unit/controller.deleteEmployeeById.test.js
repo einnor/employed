@@ -22,4 +22,13 @@ describe('Delete Employee by ID - Controller', () => {
   test('deleteEmployeeById function is defined', () => {
     expect(typeof deleteEmployeeById).toBe('function');
   });
+
+  test('delete an existing employee', async () => {
+    req.params.id = mockEmployees[0]._id;
+    model.findByIdAndDelete.mockResolvedValue(mockEmployees[0]);
+    await deleteEmployeeById(req, res, next);
+    expect(model.findByIdAndDelete).toHaveBeenCalledWith(req.params.id);
+    expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(mockEmployees[0]);
+  });
 });
