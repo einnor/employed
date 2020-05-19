@@ -47,4 +47,12 @@ describe('Update Employee by ID - Controller', () => {
     expect(res._isEndCalled()).toBeTruthy();
     expect(res._getJSONData()).toStrictEqual({});
   });
+
+  test('return 500 findByIdAndUpdate throws an exception', async () => {
+    model.findByIdAndUpdate.mockRejectedValue('Error');
+    await updateEmployeeById(req, res, next);
+    expect(res.statusCode).toBe(500);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual('Error');
+  });
 });
