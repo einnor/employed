@@ -43,4 +43,12 @@ describe('Create Employee - Controller', () => {
     expect(res.statusCode).toBe(201);
     expect(res._getJSONData()).toStrictEqual(mockEmployee);
   });
+
+  test('throw an exception when creating an employee that already exists', async () => {
+    model.create.mockReturnValue(mockEmployee);
+    model.findOne.mockReturnValue(true);
+    await createEmployee(req, res, next);
+    expect(res.statusCode).toBe(400);
+    expect(res._getJSONData()).toStrictEqual('The email you provided already exists in our database.');
+  });
 });
