@@ -40,4 +40,13 @@ describe('Delete Employee by ID - Controller', () => {
     expect(res.statusCode).toBe(404);
     expect(res._getJSONData()).toStrictEqual('User Not Found');
   });
+
+  test('return 404 when findByIdAndDelete throws an exception', async () => {
+    req.params.id = mockEmployees[0]._id;
+    model.findByIdAndDelete.mockRejectedValue('Error');
+    await deleteEmployeeById(req, res, next);
+    expect(model.findByIdAndDelete).toHaveBeenCalledWith(req.params.id);
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toStrictEqual('Error');
+  });
 });
