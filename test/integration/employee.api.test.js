@@ -5,7 +5,7 @@ const mongodb = require('../../mongodb/mongodb.utils');
 
 const endpointURL = '/api';
 
-describe('', () => {
+describe('Server Integration Test ', () => {
   test('Get /', async () => {
     const response = await request(app).get('/');
     expect(response.statusCode).toBe(200);
