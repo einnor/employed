@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { createEmployee } = require('../../controllers/employee.controller');
 const model = require('../../models/employee.model');
 const mockEmployees = require('../mockdata/employees.json');
-const reqPayload = require('../mockdata/employeeReqPayload.json');
+const mockEmployee = require('../mockdata/employeeReqPayload.json');
 
 model.create = jest.fn();
 model.findOne = jest.fn();
@@ -19,7 +19,7 @@ describe('Create Employee - Controller', () => {
     res = httpMock.createResponse();
     next = null;
 
-    req.body = { ...reqPayload };
+    req.body = { ...mockEmployee };
   });
 
   afterEach(() => {
@@ -31,5 +31,16 @@ describe('Create Employee - Controller', () => {
 
   test('createEmployee function is defined', () => {
     expect(typeof createEmployee).toBe('function');
+  });
+
+  test('create an new employee', async () => {
+    model.create.mockReturnValue(mockEmployee);
+    model.findOne.mockReturnValue(false);
+    bcrypt.hash.mockReturnValue('fakehash');
+    bcrypt.genSalt.mockReturnValue(10);
+    await createEmployee(req, res, next);
+    expect(model.create).toHaveBeenCalledWith(req.body);
+    expect(res.statusCode).toBe(201);
+    expect(res._getJSONData()).toStrictEqual(mockEmployee);
   });
 });
