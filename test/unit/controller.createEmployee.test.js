@@ -19,4 +19,8 @@ describe('Create Employee - Controller', () => {
   afterEach(() => {
     model.create.mockClear();
   });
+
+  test('createEmployee function is defined', () => {
+    expect(typeof createEmployee).toBe('function');
+  });
 });
