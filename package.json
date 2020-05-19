@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV nodemon app.js",
     "prod": "cross-env NODE_ENV=PROD node app.js",
-    "test": "cross-env NODE_ENV=TEST node app.js"
+    "test:unit": "cross-env NODE_ENV=TEST jest test/unit/*"
   },
   "keywords": [],
   "author": "",
