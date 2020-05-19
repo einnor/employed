@@ -25,4 +25,11 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(response.body).toHaveProperty('password');
     expect(response.body).toHaveProperty('createdAt');
   });
+
+  test('GET /api/contacts', async () => {
+    const response = await request(app)
+      .get(contactsURL);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.length).toBeGreaterThan(0);
+  });
 });
