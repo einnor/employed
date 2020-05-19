@@ -18,6 +18,8 @@ describe('Login Employee - Controller', () => {
     req = httpMock.createRequest();
     res = httpMock.createResponse();
     next = null;
+
+    req.body = { ...mockEmployee };
   });
 
   afterEach(() => {
@@ -25,8 +27,6 @@ describe('Login Employee - Controller', () => {
     model.findOne.mockClear();
     bcrypt.compare.mockClear();
     jwt.sign.mockClear();
-
-    req.body = { ...mockEmployee };
   });
 
   test('loginEmployee function is defined', () => {
@@ -38,8 +38,7 @@ describe('Login Employee - Controller', () => {
     bcrypt.compare.mockReturnValue(true);
     jwt.sign.mockReturnValue('fakejwttoken');
     await loginEmployee(req, res, next);
-    // expect(model.findOne).toHaveBeenCalledWith(req.body);
-    // expect(res.statusCode).toBe(201);
+    expect(res.statusCode).toBe(201);
     expect(res._getJSONData()).toStrictEqual(mockEmployee);
   });
 });
