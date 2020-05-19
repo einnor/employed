@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const app = require('./app');
 const mongodb = require('./mongodb/mongodb.utils');
 
