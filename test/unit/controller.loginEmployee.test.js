@@ -26,10 +26,20 @@ describe('Login Employee - Controller', () => {
     bcrypt.compare.mockClear();
     jwt.sign.mockClear();
 
-    req.body = { ...mockEmployee};
+    req.body = { ...mockEmployee };
   });
 
   test('loginEmployee function is defined', () => {
     expect(typeof loginEmployee).toBe('function');
+  });
+
+  test('login an new employee', async () => {
+    model.findOne.mockReturnValue(mockEmployee);
+    bcrypt.compare.mockReturnValue(true);
+    jwt.sign.mockReturnValue('fakejwttoken');
+    await loginEmployee(req, res, next);
+    // expect(model.findOne).toHaveBeenCalledWith(req.body);
+    // expect(res.statusCode).toBe(201);
+    expect(res._getJSONData()).toStrictEqual(mockEmployee);
   });
 });
