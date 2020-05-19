@@ -11,4 +11,15 @@ describe('', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual('Up and running!');
   });
+
+  test('Get /api', async () => {
+    const response = await request(app).get(endpointURL);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toStrictEqual(
+      {
+        status: 'Api is working',
+        message: 'Welcome to the employee api router',
+      }
+    );
+  });
 });
