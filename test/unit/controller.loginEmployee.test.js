@@ -40,5 +40,6 @@ describe('Login Employee - Controller', () => {
     await loginEmployee(req, res, next);
     expect(res.statusCode).toBe(201);
     expect(res._getJSONData()).toStrictEqual(mockEmployee);
+    expect(res._getHeaders()['auth-token']).toBe('fakejwttoken');
   });
 });
