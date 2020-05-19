@@ -61,4 +61,14 @@ describe('Login Employee - Controller', () => {
     expect(res._getJSONData()).toStrictEqual('Error');
     expect(res._getHeaders()['auth-token']).toBeUndefined();
   });
+
+  test('throw 400 if employee does with provided email does not exist', async () => {
+    model.findOne.mockReturnValue(null);
+    bcrypt.compare.mockReturnValue(true);
+    jwt.sign.mockReturnValue('fakejwttoken');
+    await loginEmployee(req, res, next);
+    expect(res.statusCode).toBe(400);
+    expect(res._getJSONData()).toStrictEqual('The email you provided does not exist in our database.');
+    expect(res._getHeaders()['auth-token']).toBeUndefined();
+  });
 });
