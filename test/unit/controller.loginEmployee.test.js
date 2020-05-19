@@ -42,4 +42,14 @@ describe('Login Employee - Controller', () => {
     expect(res._getJSONData()).toStrictEqual(mockEmployee);
     expect(res._getHeaders()['auth-token']).toBe('fakejwttoken');
   });
+
+  test('throw 500 if jwt.sign fails', async () => {
+    model.findOne.mockReturnValue(mockEmployee);
+    bcrypt.compare.mockReturnValue(true);
+    jwt.sign.mockRejectedValue('Error');
+    await loginEmployee(req, res, next);
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toStrictEqual('Error');
+    expect(res._getHeaders()['auth-token']).toBeUndefined();
+  });
 });
