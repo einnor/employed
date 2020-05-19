@@ -18,6 +18,8 @@ describe('Create Employee - Controller', () => {
     req = httpMock.createRequest();
     res = httpMock.createResponse();
     next = null;
+
+    req.body = { ...reqPayload };
   });
 
   afterEach(() => {
