@@ -39,4 +39,12 @@ describe('Update Employee by ID - Controller', () => {
     expect(res.statusCode).toBe(201);
     expect(res._getJSONData()).toStrictEqual(toUpdate);
   });
+
+  test('return 400 when id is not found', async () => {
+    model.findByIdAndUpdate.mockRejectedValue(null);
+    await updateEmployeeById(req, res, next);
+    expect(res.statusCode).toBe(400);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toBeNull();
+  });
 });
