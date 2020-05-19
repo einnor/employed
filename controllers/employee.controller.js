@@ -75,9 +75,10 @@ const updateEmployeeById = async (req, res, next) => {
     if (employee) {
       res.status(201).json(employee);
     } else {
-      res.status(400).json();
+      res.status(400).json({});
     }
   } catch (error) {
+    // console.log(error);
     res.status(500).json(error);
   }
 };

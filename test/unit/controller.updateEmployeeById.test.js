@@ -41,10 +41,10 @@ describe('Update Employee by ID - Controller', () => {
   });
 
   test('return 400 when id is not found', async () => {
-    model.findByIdAndUpdate.mockRejectedValue(null);
+    model.findByIdAndUpdate.mockReturnValue(null);
     await updateEmployeeById(req, res, next);
     expect(res.statusCode).toBe(400);
     expect(res._isEndCalled()).toBeTruthy();
-    expect(res._getJSONData()).toBeNull();
+    expect(res._getJSONData()).toStrictEqual({});
   });
 });
