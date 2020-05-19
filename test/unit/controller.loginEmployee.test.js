@@ -28,4 +28,8 @@ describe('Login Employee - Controller', () => {
 
     req.body = { ...mockEmployee};
   });
+
+  test('loginEmployee function is defined', () => {
+    expect(typeof loginEmployee).toBe('function');
+  });
 });
