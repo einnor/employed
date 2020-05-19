@@ -52,4 +52,13 @@ describe('Login Employee - Controller', () => {
     expect(res._getJSONData()).toStrictEqual('Error');
     expect(res._getHeaders()['auth-token']).toBeUndefined();
   });
+
+  test('throw 500 if bcrypt.compare fails', async () => {
+    model.findOne.mockReturnValue(mockEmployee);
+    bcrypt.compare.mockRejectedValue('Error');
+    await loginEmployee(req, res, next);
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toStrictEqual('Error');
+    expect(res._getHeaders()['auth-token']).toBeUndefined();
+  });
 });
