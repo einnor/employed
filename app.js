@@ -9,7 +9,7 @@ app.use(express.json());
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ data: 'Up and running!' });
+  res.status(200).json('Up and running!');
 });
 
 module.exports = app;
