@@ -51,4 +51,13 @@ describe('Create Employee - Controller', () => {
     expect(res.statusCode).toBe(400);
     expect(res._getJSONData()).toStrictEqual('The email you provided already exists in our database.');
   });
+
+  test('it returns 500 if password hashing fails', async () => {
+    model.create.mockRejectedValue('Error');
+    model.findOne.mockReturnValue(false);
+    bcrypt.hash.mockReturnValue('fakehash');
+    await createEmployee(req, res, next);
+    expect(res.statusCode).toBe(500);
+    expect(res._getJSONData()).toStrictEqual('Error');
+  });
 });
