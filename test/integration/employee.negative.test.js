@@ -16,12 +16,22 @@ describe('Negative Scenarios - Integration Tests', () => {
     await mongodb.disconnect(`Employee_${process.env.NODE_ENV}`);
   });
 
-  test.only('POST /api/contacts with no password', async () => {
+  test('POST /api/contacts with no password', async () => {
     const response = request(app)
       .post(contactsURL)
       .send({
         name: 'John Doe',
         email: 'john.doe@example.com'
+      });
+    expect(response.statusCode).toBe(400);
+  });
+
+  test.only('POST /api/contacts with no email', async () => {
+    const response = request(app)
+      .post(contactsURL)
+      .send({
+        name: 'John Doe',
+        password: 'password'
       });
     expect(response.statusCode).toBe(400);
   });
