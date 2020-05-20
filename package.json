@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV nodemon server.js",
     "prod": "cross-env NODE_ENV=PROD node server.js",
-    "test:coverage": "jest --coverage test/unit/*",
-    "test:unit": "jest test/unit/*",
-    "test:integration": "cross-env NODE_ENV=TEST jest --watchAll --detectOpenHandles test/integration/*"
+    "test": "yarn run test:integration",
+    "test:unit": "jest --coverage test/unit/*",
+    "test:integration": "cross-env NODE_ENV=TEST jest --coverage --watchAll --detectOpenHandles test/integration/*"
   },
   "keywords": [],
   "author": "",
