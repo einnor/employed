@@ -21,6 +21,6 @@ module.exports = function (config) {
     thresholds: { high: 95, low: 85, break: 56 },
     timeoutMs: 60000,
     timeoutFactor: 4,
-    maxConsurrentTestRunners: 6,
+    maxConcurrentTestRunners: 6,
   });
 };
