@@ -115,7 +115,7 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(500);
   });
 
-  test.only('POST /api/contacts/login with wrong email', async () => {
+  test('POST /api/contacts/login with wrong email', async () => {
     const responseOfCreate = await request(app)
       .post(contactsURL)
       .send({
@@ -134,5 +134,26 @@ describe('Negative Scenarios - Integration Tests', () => {
       });
     expect(response.statusCode).toBe(400);
     expect(response.body).toBe('The email you provided does not exist in our database.');
+  });
+
+  test.only('POST /api/contacts/login with wrong password', async () => {
+    const responseOfCreate = await request(app)
+      .post(contactsURL)
+      .send({
+        name: 'Jane Doe',
+        email: 'jane.doe@example.com',
+        password: 'password',
+      });
+    expect(responseOfCreate.statusCode).toBe(201);
+
+    const response = await request(app)
+      .post(`${contactsURL}/login`)
+      .send({
+        name: 'Jane Doe',
+        email: 'jane.doe@example.com',
+        password: 'wrong_password',
+      });
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toBe('You provided an invalid password.Please try again.');
   });
 });
