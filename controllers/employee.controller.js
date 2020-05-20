@@ -86,7 +86,6 @@ const updateEmployeeById = async (req, res, next) => {
 const deleteEmployeeById = async (req, res, next) => {
   try {
     const results = await employeeModel.findByIdAndDelete(req.params.id);
-    console.log('\n\n\n\n\n', req.params.id, '\n\n\n\n\n');
     if (results) {
       res.status(200).json(results);
     } else {
