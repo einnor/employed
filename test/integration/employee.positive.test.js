@@ -12,7 +12,9 @@ describe('Positive Scenarios - Integration Tests', () => {
     await mongodb.dropCollection(`Employee_${process.env.NODE_ENV}`);
   });
 
-  afterAll(async () => {});
+  afterAll(async () => {
+    await mongodb.disconnect(`Employee_${process.env.NODE_ENV}`);
+  });
 
   test('POST /api/contacts', async () => {
     const response = await request(app)
