@@ -75,7 +75,7 @@ describe('Negative Scenarios - Integration Tests', () => {
 
   test.only('GET /api/contacts/:id with wrong employee ID', async () => {
     const response = await request(app)
-      .get(`${contactsURL}/fake_employee_id`);
+      .get(`${contactsURL}/5ec4f73bef3442e0b62f5410`);
     expect(response.statusCode).toBe(404);
   });
 });
