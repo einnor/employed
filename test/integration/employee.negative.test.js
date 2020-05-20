@@ -36,7 +36,7 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(400);
   });
 
-  test.only('POST /api/contacts with no name', async () => {
+  test('POST /api/contacts with no name', async () => {
     const response = await request(app)
       .post(contactsURL)
       .send({
@@ -44,5 +44,26 @@ describe('Negative Scenarios - Integration Tests', () => {
         password: 'password',
       });
     expect(response.statusCode).toBe(400);
+  });
+
+  test.only('POST /api/contacts with existing email', async () => {
+    let response = await request(app)
+      .post(contactsURL)
+      .send({
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        password: 'password',
+      });
+    expect(response.statusCode).toBe(201);
+
+    response = await request(app)
+      .post(contactsURL)
+      .send({
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        password: 'password',
+      });
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toBe('The email you provided already exists in our database.');
   });
 });
