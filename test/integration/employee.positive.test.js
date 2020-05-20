@@ -97,7 +97,7 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(responseOfLogin.header['auth-token']).toBeTruthy();
   });
 
-  test.only('PUT /api/contacts/:id', async () => {
+  test('PUT /api/contacts/:id', async () => {
     const responseOfCreate = await request(app)
       .post(contactsURL)
       .send({
