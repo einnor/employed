@@ -76,7 +76,28 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(responseOfAnotherDelete.statusCode).toBe(404);
   });
 
-  test.only('PUT /api/contacts/:id', async () => {
+  test.only('POST /api/contacts/login', async () => {
+    const responseOfCreate = await request(app)
+      .post(contactsURL)
+      .send({
+        name: 'Ronnie Doe',
+        email: 'ronnie.doe@example.com',
+        password: 'password',
+      });
+    expect(responseOfCreate.statusCode).toBe(201);
+
+    const responseOfLogin = await request(app)
+      .post(`${contactsURL}/login`)
+      .send({
+        name: 'Ronnie Doe',
+        email: 'ronnie.doe@example.com',
+        password: 'password',
+      });
+    expect(responseOfLogin.statusCode).toBe(201);
+    expect(responseOfLogin.header['auth-token']).toBeTruthy();
+  });
+
+  test('PUT /api/contacts/:id', async () => {
     const responseOfCreate = await request(app)
       .post(contactsURL)
       .send({
