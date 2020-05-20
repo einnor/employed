@@ -46,7 +46,7 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(400);
   });
 
-  test.only('POST /api/contacts with existing email', async () => {
+  test('POST /api/contacts with existing email', async () => {
     let response = await request(app)
       .post(contactsURL)
       .send({
@@ -65,5 +65,11 @@ describe('Negative Scenarios - Integration Tests', () => {
       });
     expect(response.statusCode).toBe(400);
     expect(response.body).toBe('The email you provided already exists in our database.');
+  });
+
+  test.only('GET /api/contacts when collection is empty', async () => {
+    const response = await request(app)
+      .get(contactsURL);
+    expect(response.statusCode).toBe(404);
   });
 });
