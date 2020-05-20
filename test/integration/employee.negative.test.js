@@ -85,12 +85,21 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(500);
   });
 
-  test.only('PUT /api/contacts/:id with wrong employee ID', async () => {
+  // test('PUT /api/contacts/:id with wrong employee ID', async () => {
+  //   const response = await request(app)
+  //     .put(`${contactsURL}/5ec4f73bef3442e0b62f5410`)
+  //     .send({
+  //       gender: 'female',
+  //     });
+  //   expect(response.statusCode).toBe(400);
+  // });
+
+  test.only('PUT /api/contacts/:id with invalid employee ID', async () => {
     const response = await request(app)
-      .put(`${contactsURL}/5ec4f73bef3442e0b62f5410`)
+      .put(`${contactsURL}/invalid_employee_id`)
       .send({
         gender: 'female',
       });
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(500);
   });
 });
