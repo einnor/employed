@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV nodemon server.js",
     "prod": "cross-env NODE_ENV=PROD node server.js",
-    "test": "yarn run test:integration",
+    "test": "yarn run test:unit && yarn run test:integration",
     "test:mutation": "stryker run",
     "test:unit": "jest --coverage test/unit/*",
     "test:integration": "cross-env NODE_ENV=TEST jest --coverage --watchAll --detectOpenHandles test/integration/*"
