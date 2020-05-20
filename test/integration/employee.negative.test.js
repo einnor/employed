@@ -26,12 +26,22 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(400);
   });
 
-  test.only('POST /api/contacts with no email', async () => {
+  test('POST /api/contacts with no email', async () => {
     const response = await request(app)
       .post(contactsURL)
       .send({
         name: 'John Doe',
         password: 'password'
+      });
+    expect(response.statusCode).toBe(400);
+  });
+
+  test.only('POST /api/contacts with no name', async () => {
+    const response = await request(app)
+      .post(contactsURL)
+      .send({
+        email: 'john.doe@example.com',
+        password: 'password',
       });
     expect(response.statusCode).toBe(400);
   });
