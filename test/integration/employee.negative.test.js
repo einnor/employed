@@ -103,6 +103,12 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(500);
   });
 
+  test.only('DELETE /api/contacts/:id with wrong employee ID', async () => {
+    const response = await request(app)
+      .delete(`${contactsURL}/5ec4f73bef3442e0b62f5410`);
+    expect(response.statusCode).toBe(404);
+  });
+
   test.only('DELETE /api/contacts/:id with invalid employee ID', async () => {
     const response = await request(app)
       .delete(`${contactsURL}/invalid_employee_id`);
