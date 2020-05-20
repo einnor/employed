@@ -67,9 +67,15 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.body).toBe('The email you provided already exists in our database.');
   });
 
-  test.only('GET /api/contacts when collection is empty', async () => {
+  test('GET /api/contacts when collection is empty', async () => {
     const response = await request(app)
       .get(contactsURL);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test.only('GET /api/contacts/:id with wrong employee ID', async () => {
+    const response = await request(app)
+      .get(`${contactsURL}/fake_employee_id`);
     expect(response.statusCode).toBe(404);
   });
 });
