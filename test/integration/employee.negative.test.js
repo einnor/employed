@@ -7,12 +7,12 @@ const mockEmplyeeRequest = require('../mockdata/employeeReqPayload.json');
 const contactsURL = '/api/contacts';
 
 describe('Negative Scenarios - Integration Tests', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await mongodb.connect();
     await mongodb.dropCollection(`Employee_${process.env.NODE_ENV}`);
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await mongodb.disconnect(`Employee_${process.env.NODE_ENV}`);
   });
 
@@ -85,16 +85,16 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(500);
   });
 
-  // test('PUT /api/contacts/:id with wrong employee ID', async () => {
-  //   const response = await request(app)
-  //     .put(`${contactsURL}/5ec4f73bef3442e0b62f5410`)
-  //     .send({
-  //       gender: 'female',
-  //     });
-  //   expect(response.statusCode).toBe(400);
-  // });
+  test.skip('PUT /api/contacts/:id with wrong employee ID', async () => {
+    const response = await request(app)
+      .put(`${contactsURL}/5ec4f73bef3442e0b62f5410`)
+      .send({
+        gender: 'female',
+      });
+    expect(response.statusCode).toBe(400);
+  });
 
-  test.only('PUT /api/contacts/:id with invalid employee ID', async () => {
+  test.skip('PUT /api/contacts/:id with invalid employee ID', async () => {
     const response = await request(app)
       .put(`${contactsURL}/invalid_employee_id`)
       .send({
