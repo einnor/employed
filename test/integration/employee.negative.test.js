@@ -7,12 +7,12 @@ const mockEmplyeeRequest = require('../mockdata/employeeReqPayload.json');
 const contactsURL = '/api/contacts';
 
 describe('Negative Scenarios - Integration Tests', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await mongodb.connect();
     await mongodb.dropCollection(`Employee_${process.env.NODE_ENV}`);
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await mongodb.disconnect(`Employee_${process.env.NODE_ENV}`);
   });
 
@@ -46,6 +46,12 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(400);
   });
 
+  test('GET /api/contacts when collection is empty', async () => {
+    const response = await request(app)
+      .get(contactsURL);
+    expect(response.statusCode).toBe(404);
+  });
+
   test('POST /api/contacts with existing email', async () => {
     let response = await request(app)
       .post(contactsURL)
@@ -65,12 +71,6 @@ describe('Negative Scenarios - Integration Tests', () => {
       });
     expect(response.statusCode).toBe(400);
     expect(response.body).toBe('The email you provided already exists in our database.');
-  });
-
-  test('GET /api/contacts when collection is empty', async () => {
-    const response = await request(app)
-      .get(contactsURL);
-    expect(response.statusCode).toBe(404);
   });
 
   test('GET /api/contacts/:id with wrong employee ID', async () => {
