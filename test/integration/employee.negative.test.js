@@ -79,9 +79,18 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(404);
   });
 
-  test.only('GET /api/contacts/:id with invalid employee ID', async () => {
+  test('GET /api/contacts/:id with invalid employee ID', async () => {
     const response = await request(app)
       .get(`${contactsURL}/invalid_employee_id`);
+    expect(response.statusCode).toBe(500);
+  });
+
+  test.only('PUT /api/contacts/:id with wrong employee ID', async () => {
+    const response = await request(app)
+      .put(`${contactsURL}/5ec4f73bef3442e0b62f5410`)
+      .send({
+        gender: 'female',
+      });
     expect(response.statusCode).toBe(500);
   });
 });
