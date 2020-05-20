@@ -76,7 +76,7 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(responseOfAnotherDelete.statusCode).toBe(404);
   });
 
-  test.only('POST /api/contacts/login', async () => {
+  test('POST /api/contacts/login', async () => {
     const responseOfCreate = await request(app)
       .post(contactsURL)
       .send({
@@ -97,7 +97,7 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(responseOfLogin.header['auth-token']).toBeTruthy();
   });
 
-  test('PUT /api/contacts/:id', async () => {
+  test.only('PUT /api/contacts/:id', async () => {
     const responseOfCreate = await request(app)
       .post(contactsURL)
       .send({
@@ -109,13 +109,25 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(responseOfCreate.statusCode).toBe(201);
     expect(responseOfCreate.body).toHaveProperty('gender', 'male');
 
+    const responseOfLogin = await request(app)
+      .post(`${contactsURL}/login`)
+      .send({
+        name: 'Peggy Doe',
+        email: 'peggy.doe@example.com',
+        password: 'password',
+      });
+    expect(responseOfLogin.statusCode).toBe(201);
+    expect(responseOfLogin.header['auth-token']).toBeTruthy();
+
     const responseOfUpdate = await request(app)
       .put(`${contactsURL}/${responseOfCreate.body._id}`)
       .send({
         gender: 'female',
+      })
+      .set({
+        'auth-token': responseOfLogin.header['auth-token'],
       });
     expect(responseOfUpdate.statusCode).toBe(201);
-    expect(responseOfUpdate.body).toHaveProperty('gender', 'female');
     
     const responseOfGetById = await request(app)
       .get(`${contactsURL}/${responseOfCreate.body._id}`);
