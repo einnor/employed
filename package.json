@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=DEV nodemon server.js",
     "prod": "cross-env NODE_ENV=PROD node server.js",
     "test": "yarn run test:integration",
+    "test:mutation": "stryker run",
     "test:unit": "jest --coverage test/unit/*",
     "test:integration": "cross-env NODE_ENV=TEST jest --coverage --watchAll --detectOpenHandles test/integration/*"
   },
@@ -24,6 +25,9 @@
     "mongoose": "^5.9.14"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^3.2.4",
+    "@stryker-mutator/javascript-mutator": "^3.2.4",
+    "@stryker-mutator/jest-runner": "^3.2.4",
     "jest": "^26.0.1",
     "node-mocks-http": "^1.8.1",
     "nodemon": "^2.0.4",
