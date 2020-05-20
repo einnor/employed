@@ -91,6 +91,6 @@ describe('Negative Scenarios - Integration Tests', () => {
       .send({
         gender: 'female',
       });
-    expect(response.statusCode).toBe(500);
+    expect(response.statusCode).toBe(400);
   });
 });
