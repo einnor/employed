@@ -17,7 +17,7 @@ describe('Negative Scenarios - Integration Tests', () => {
   });
 
   test('POST /api/contacts with no password', async () => {
-    const response = request(app)
+    const response = await request(app)
       .post(contactsURL)
       .send({
         name: 'John Doe',
@@ -27,7 +27,7 @@ describe('Negative Scenarios - Integration Tests', () => {
   });
 
   test.only('POST /api/contacts with no email', async () => {
-    const response = request(app)
+    const response = await request(app)
       .post(contactsURL)
       .send({
         name: 'John Doe',
