@@ -103,15 +103,36 @@ describe('Negative Scenarios - Integration Tests', () => {
     expect(response.statusCode).toBe(500);
   });
 
-  test.only('DELETE /api/contacts/:id with wrong employee ID', async () => {
+  test('DELETE /api/contacts/:id with wrong employee ID', async () => {
     const response = await request(app)
       .delete(`${contactsURL}/5ec4f73bef3442e0b62f5410`);
     expect(response.statusCode).toBe(404);
   });
 
-  test.only('DELETE /api/contacts/:id with invalid employee ID', async () => {
+  test('DELETE /api/contacts/:id with invalid employee ID', async () => {
     const response = await request(app)
       .delete(`${contactsURL}/invalid_employee_id`);
     expect(response.statusCode).toBe(500);
+  });
+
+  test.only('POST /api/contacts/login with wrong email', async () => {
+    const responseOfCreate = await request(app)
+      .post(contactsURL)
+      .send({
+        name: 'Jane Doe',
+        email: 'jane.doe@example.com',
+        password: 'password',
+      });
+    expect(responseOfCreate.statusCode).toBe(201);
+
+    const response = await request(app)
+      .post(`${contactsURL}/login`)
+      .send({
+        name: 'Jane Doe',
+        email: 'wrong.email@example.com',
+        password: 'password',
+      });
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toBe('The email you provided does not exist in our database.');
   });
 });
