@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 router.post('/contacts', controller.createEmployee);
 router.get('/contacts', controller.getAllEmployees);
 router.get('/contacts/:id', controller.getEmployeeById);
-router.put('/contacts/:id', controller.updateEmployeeById);
-router.delete('/contacts/:id', verifyToken, controller.updateEmployeeById);
-router.delete('/contacts/login', controller.loginEmployee);
+router.put('/contacts/:id', verifyToken, controller.updateEmployeeById);
+router.delete('/contacts/:id', controller.deleteEmployeeById);
+router.post('/contacts/login', controller.loginEmployee);
 
 module.exports = router;

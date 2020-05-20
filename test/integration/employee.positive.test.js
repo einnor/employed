@@ -33,7 +33,7 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(response.body.length).toBeGreaterThan(0);
   });
 
-  test.only('GET /api/contacts/:id', async () => {
+  test('GET /api/contacts/:id', async () => {
     const responseOfCreate = await request(app)
       .post(contactsURL)
       .send({
@@ -51,5 +51,28 @@ describe('Positive Scenarios - Integration Tests', () => {
     expect(response.body).toHaveProperty('_id', responseOfCreate.body._id);
     expect(response.body).toHaveProperty('password', responseOfCreate.body.password);
     expect(response.body).toHaveProperty('createdAt', responseOfCreate.body.createdAt);
+  });
+
+  test.only('DELETE /api/contacts/:id', async () => {
+    const responseOfCreate = await request(app)
+      .post(contactsURL)
+      .send({
+        name: 'Judy Doe',
+        email: 'judy.doe@example.com',
+        password: 'password',
+      });
+    expect(responseOfCreate.statusCode).toBe(201);
+
+    const responseOfDelete = await request(app)
+      .delete(`${contactsURL}/${responseOfCreate.body._id}`);
+    expect(responseOfDelete.statusCode).toBe(200);
+    
+    const responseOfGetById = await request(app)
+      .get(`${contactsURL}/${responseOfCreate.body._id}`);
+    expect(responseOfGetById.statusCode).toBe(404);
+
+    const responseOfAnotherDelete = await request(app)
+      .delete(`${contactsURL}/${responseOfCreate.body._id}`);
+    expect(responseOfAnotherDelete.statusCode).toBe(404);
   });
 });
